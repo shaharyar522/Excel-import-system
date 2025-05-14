@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Ticketing System</title>
+  <title>Login | Excel Sheet  System</title>
   <link rel="stylesheet" href="css/login.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <div class="form-group">
       <i class="fas fa-lock input-icon"></i>
-      <input type="password" name="password" class="form-input" placeholder=" " required>
+      <input type="password" name="password" class="form-input" placeholder="" required>
       <span class="floating-label">Password</span>
     </div>
     

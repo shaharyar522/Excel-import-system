@@ -2,7 +2,7 @@
 $servername = "localhost"; // or "127.0.0.1"
 $username = "root";        // default username for local XAMPP/WAMP
 $password = "";            // default password is empty for local
-$dbname = "";         // your database name
+$dbname = "excel";         // your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
