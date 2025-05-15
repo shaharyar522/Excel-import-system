@@ -53,152 +53,42 @@ require 'conn.php';
   </div>
 </div>
 
-<!-- Display Imported Data -->
-<?php
-// Get all weekly records for the dropdown
-$weeklyRecords = [];
-$recordsResult = $conn->query("SELECT id, title, created_at FROM weekly_record ORDER BY created_at DESC");
-if ($recordsResult->num_rows > 0) {
-    while ($row = $recordsResult->fetch_assoc()) {
-        $weeklyRecords[] = $row;
-    }
-}
 
-// Get the selected weekly record ID (or most recent)
-$selectedRecordId = $_GET['record_id'] ?? null;
-if (!$selectedRecordId && count($weeklyRecords) > 0) {
-    $selectedRecordId = $weeklyRecords[0]['id'];
-}
-
-// Fetch club data for the selected weekly record
-$clubData = [];
-$currentRecordTitle = '';
-if ($selectedRecordId) {
-    $recordStmt = $conn->prepare("SELECT title FROM weekly_record WHERE id = ?");
-    $recordStmt->bind_param("i", $selectedRecordId);
-    $recordStmt->execute();
-    $recordResult = $recordStmt->get_result();
-    if ($recordResult->num_rows > 0) {
-        $currentRecordTitle = $recordResult->fetch_assoc()['title'];
-    }
-    
-    $stmt = $conn->prepare("SELECT * FROM union_overall WHERE weekly_record_id = ? ORDER BY Club_Name ASC");
-    $stmt->bind_param("i", $selectedRecordId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $clubData[] = $row;
-        }
-    }
-}
-?>
-
-<?php if (count($weeklyRecords) > 0): ?>
-
-  
-
-</div>
-<?php endif; ?>
-
-<?php if (count($clubData) > 0): ?>
-  <div class="container mt-5">
-    <h1 style="text-align: center;">Excel Data</h1>
-    
-   <div class="table-responsive">
-  <table class="table table-bordered table-striped table-hover shadow-sm bg-white">
-    <thead class="table-dark">
+<!-- Data Table -->
+<div class="container">
+  <table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-primary">
       <tr>
-        <th>ID</th>
-        <th>Weekly Record ID</th>
-        <th>Club Name</th>
-        <th>Club ID</th>
-        <th>Hands</th>
-        <th>Player Overall</th>
-        <th>Ring Game</th>
-        <th>MTT/SNG</th>
-        <th>SPINUP</th>
-        <th>COLOR GAME</th>
-        <th>LUCKY DRAW</th>
-        <th>Jackpot</th>
-        <th>Player EV Chop</th>
-        <th>Ticket Value Won</th>
-        <th>Player Ticket Buy-in</th>
-        <th>Customized Prize Value</th>
-        <th>Club Earnings</th>
-        <th>Fee</th>
-        <th>Fee PPST Games</th>
-        <th>Fee Non-PPST Games</th>
-        <th>Fee PPSR Games</th>
-        <th>Fee Non-PPSR Games</th>
-        <th>SPINUP Buy-in</th>
-        <th>SPINUP Prize</th>
-        <th>COLOR GAME Bets</th>
-        <th>COLOR GAME Payouts</th>
-        <th>LUCKY DRAW Bets</th>
-        <th>LUCKY DRAW Payouts</th>
-        <th>Jackpot Fee</th>
-        <th>Jackpot Prize</th>
-        <th>Club EV Chop</th>
-        <th>Ticket Value Given Out</th>
-        <th>Club Ticket Buy-in</th>
-        <th>Gtd Gap</th>
-        <th>Ticket Value Won (Again?)</th>
+        <th scope="col">Title</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($clubData as $row): ?>
-        <tr>
-          <td><?= $row['id'] ?></td>
-          <td><?= $row['weekly_record_id'] ?></td>
-          <td><?= htmlspecialchars($row['Club_Name']) ?></td>
-          <td><?= htmlspecialchars($row['Club_ID']) ?></td>
-          <td><?= $row['Hands_Missions'] ?></td>
-          <td><?= number_format($row['Player_Overall'], 2) ?></td>
-          <td><?= number_format($row['Ring_Game'], 2) ?></td>
-          <td><?= number_format($row['MTT_SNG'], 2) ?></td>
-          <td><?= number_format($row['SPINUP'], 2) ?></td>
-          <td><?= number_format($row['COLOR_GAME'], 2) ?></td>
-          <td><?= number_format($row['LUCKY_DRAW'], 2) ?></td>
-          <td><?= number_format($row['Jackpot'], 2) ?></td>
-          <td><?= number_format($row['Player_EV_Chop'], 2) ?></td>
-          <td><?= number_format($row['Ticket_Value_Won'], 2) ?></td>
-          <td><?= number_format($row['Player_Ticket_Buy_in'], 2) ?></td>
-          <td><?= number_format($row['Customized_Prize_Value'], 2) ?></td>
-          <td><?= number_format($row['Club_earning_Overall'], 2) ?></td>
-          <td><?= number_format($row['Fee'], 2) ?></td>
-          <td><?= number_format($row['Fee_PPST_Games'], 2) ?></td>
-          <td><?= number_format($row['Fee_Non_PPST_Games'], 2) ?></td>
-          <td><?= number_format($row['Fee_PPSR_Games'], 2) ?></td>
-          <td><?= number_format($row['Fee_Non_PPSR_Games'], 2) ?></td>
-          <td><?= number_format($row['SPINUP_Buy_in'], 2) ?></td>
-          <td><?= number_format($row['SPINUP_Prize'], 2) ?></td>
-          <td><?= number_format($row['COLOR_GAME_Bets'], 2) ?></td>
-          <td><?= number_format($row['COLOR_GAME_Payouts'], 2) ?></td>
-          <td><?= number_format($row['LUCKY_DRAW_Bets'], 2) ?></td>
-          <td><?= number_format($row['LUCKY_DRAW_Payouts'], 2) ?></td>
-          <td><?= number_format($row['JackpotFee'], 2) ?></td>
-          <td><?= number_format($row['Jackpot_Prize'], 2) ?></td>
-          <td><?= number_format($row['Club_EV_Chop'], 2) ?></td>
-          <td><?= number_format($row['Ticket_Value_Given_Out'], 2) ?></td>
-          <td><?= number_format($row['Club_Ticket_Buy_in'], 2) ?></td>
-          <td><?= number_format($row['Gtd_Gap'], 2) ?></td>
-          <td><?= number_format($row['Ticket_Value_Won'], 2) ?></td>
-        </tr>
-      <?php endforeach; ?>
+   <tbody>
+  <?php
+  // Fetch only the latest record (LIMIT 1)
+  require 'conn.php';
+  $recordResult = $conn->query("SELECT id, title FROM weekly_record ORDER BY created_at DESC LIMIT 1");
+
+  if ($recordResult && $row = $recordResult->fetch_assoc()):
+  ?>
+    <tr>
+      <td><?= htmlspecialchars($row['title']) ?></td>
+      <td>
+        <a href="view_report.php?record_id=<?= $row['id'] ?>" class="btn btn-sm btn-info" target="_blank">View</a>
+      </td>
+    </tr>
+  <?php else: ?>
+    <tr>
+      <td colspan="2" class="text-center">No record found</td>
+    </tr>
+  <?php endif; ?>
+</tbody>
+
     </tbody>
   </table>
 </div>
 
-  </div>
-<?php elseif ($selectedRecordId): ?>
-  <div class="container mt-5">
-    <div class="alert alert-info">
-      No data found for the selected weekly report.
-    </div>
-  </div>
-<?php endif; ?>
 
 </body>
 </html>
