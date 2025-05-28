@@ -1,0 +1,23 @@
+ALTER TABLE `weekly_record`
+ADD COLUMN `date_from` DATE NULL,
+ADD COLUMN `date_to` DATE NULL;
+
+
+
+
+
+
+
+
+
+
+
+ALTER TABLE `union_overall`
+ADD COLUMN `date_to` DATE NULL AFTER `weekly_record_id`;
+
+
+
+
+
+
+ALTER TABLE weekly_record ADD COLUMN union_overall_fields_list TEXT NULL;

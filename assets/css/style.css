@@ -1,0 +1,63 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+.green-header {
+      background-color: #007f00;
+      color: white;
+      text-align: center;
+    }
+    .red-header {
+      background-color: #ff4d4d;
+      color: white;
+      text-align: center;
+    }
+    .yellow-header {
+      background-color: #ffff00 !important;
+      color: black;
+      text-align: center;
+    }
+    th {
+      font-size: 12px;
+      text-align: center;
+      vertical-align: middle;
+      width: 60px !important;
+    }
+    td{
+        font-size: 10px;
+      text-align: center;
+      vertical-align: middle;
+      width: 260px !important;
+      height: 10px !important;
+    }
+   table {
+      border-collapse: collapse;
+      white-space: nowrap;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .date-cell {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  /* writing-mode: vertical-rl; */
+  /* text-orientation: mixed; */
+vertical-align: middle;
+  min-width: 60px;
+}
+.player-group{
+  background-color: #ff4d4d !important;
+}
+.club-earning{
+ background-color: #007f00;
+}

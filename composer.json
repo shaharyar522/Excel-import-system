@@ -1,0 +1,9 @@
+{
+    "require": {
+<<<<<<< HEAD
+        "phpoffice/phpspreadsheet": "^4.2"
+=======
+        "phpoffice/phpspreadsheet": "^1.19"
+>>>>>>> 50f5a6f (Initial commit from local project)
+    }
+}

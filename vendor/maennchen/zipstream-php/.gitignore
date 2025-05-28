@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+/composer.lock
+/cov
+/coverage.clover.xml
+/docs
+.idea
+/.php-cs-fixer.cache
+/.phpdoc/cache
+/.phpunit.result.cache
+/phpunit.xml
+/.phpunit.cache
+/tools
+/vendor
+=======
+clover.xml
+composer.lock
+coverage.clover
+.idea
+phpunit.xml
+vendor
+>>>>>>> 50f5a6f (Initial commit from local project)
